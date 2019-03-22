@@ -44,12 +44,17 @@ namespace Homework.NameList
                         throw new FormatException("Invalid ID number: " + values[1]);
                     }
 
+                    if (dict.ContainsKey[key]) {
+                        throw new FormatException("Duplicate key: " + key);
+                    }
                     dict.Add(key, values[0]);
                 }
             }
 
             return dict;
         }
+
+
 
         static void Main(string[] args)
         {
