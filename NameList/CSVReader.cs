@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Homework.NameList
@@ -8,7 +9,7 @@ namespace Homework.NameList
     {
         /// <summary>
         /// <para>
-        /// Read a list of name/ID pairs from a comma-separated text file whose path is passed in
+        /// Reads a list of name/ID pairs from a comma-separated text file whose path is passed in
         /// in the <c>filename</a> parameter.
         /// </para>
         /// <para>
@@ -33,28 +34,44 @@ namespace Homework.NameList
                 while (!csvReader.EndOfStream)
                 {
                     var line = csvReader.ReadLine();
-                    var values = line.Split(';');
-
-                    // All lines must have at least 2 values: name and ID
-                    if (values.Length != 2) {
-                        throw new FormatException("Invalid format: " + line);
-                    }
-
-                    int key;
-                    // Make sure ID is a valid integer
-                    if (!Int32.TryParse(values[1], out key)) {
-                        throw new FormatException("Invalid ID number: " + values[1]);
-                    }
+                    var pair = ParseLine(line);
 
                     // Do not allow duplicate IDs
-                    if (dict.ContainsKey(key)) {
-                        throw new FormatException("Duplicate ID: " + key);
+                    if (dict.ContainsKey(pair.Key)) {
+                        throw new FormatException("Duplicate ID: " + pair.Key);
                     }
-                    dict.Add(key, values[0]);
+                    dict.Add(pair.Key, pair.Value);
                 }
             }
 
             return dict;
+        }
+
+        /// <summary>
+        /// <para>
+        /// Parses a single CSV line and returns it as a vey/value pair. Line must have the following format:
+        /// <code>
+        /// Second Name;342
+        /// </code>
+        /// </summary>
+        /// <param name="line">The line to parse.</param>
+        /// <returns>A <c>KeyValuePair&lt;int, string&gt;</c> with values from the line.</returns>
+        /// <exception cref="System.IO.FormatException">Thrown when line has an invalid format.</exception>
+        public static KeyValuePair<int, string> ParseLine(string line) {
+            var values = line.Split(';');
+
+            // All lines must have at least 2 values: name and ID
+            if (values.Length != 2) {
+                throw new FormatException("Invalid format: " + line);
+            }
+
+            int key;
+            // Make sure ID is a valid integer
+            if (!Int32.TryParse(values[1], out key)) {
+                throw new FormatException("Invalid ID number: " + values[1]);
+            }
+
+            return new KeyValuePair<int, string>(key, values[0]);
         }
     }
 }
