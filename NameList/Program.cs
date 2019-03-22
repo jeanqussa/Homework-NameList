@@ -26,6 +26,7 @@ namespace Homework.NameList
 
         static int Main(string[] args)
         {
+            // Print the help message
             if (args.Length == 0) {
                 Console.WriteLine("Please specify a file name.");
                 Console.WriteLine("Usage: NameList [-d] <filename>");
@@ -40,12 +41,17 @@ namespace Homework.NameList
                 return 1;
             }
 
+            // Sort descendingly if we have a '-d' flag specified. Since this
+            // is the only flag available, we can get away with only
+            // checking the first argument instead of using a loop
             bool descending = false;
             if (args[0] == "-d") {
                 descending = true;
             }
+            // Last argument is the filename. Ignore the rest
             string filename = args[args.Length - 1];
 
+            // Handle exceptions by printing a helpful error message
             Dictionary<int, string> names;
             try {
                 names = CSVReader.ReadPairsFromCSVFile(filename);
@@ -54,6 +60,7 @@ namespace Homework.NameList
                 return 1;
             }
 
+            // Sort names and print the resulting list
             var sorted = SortPairs(ref names, descending);
             foreach (var entry in sorted) {
                 Console.WriteLine("" + entry.Key + " " + entry.Value);
