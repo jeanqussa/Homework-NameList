@@ -27,8 +27,8 @@ namespace Homework.NameList
         /// <exception cref="System.IO.DirectoryNotFoundException">Thrown when part of the path in <c>filename</c> is not found.</exception>
         /// <exception cref="System.IO.IOException">Thrown when invalid <c>filename</c> is passed.</exception>
         /// <exception cref="System.IO.FormatException">Thrown when file has an invalid format or duplicate IDs.</exception>
-        public static Dictionary<int, string> ReadPairsFromCSVFile(string filename) {
-            var dict = new Dictionary<int, string>();
+        public static IDictionary<int, string> ReadPairsFromCSVFile(string filename) {
+            IDictionary<int, string> dict = new Dictionary<int, string>();
             
             using (var csvReader = new StreamReader(filename)) {
                 while (!csvReader.EndOfStream)

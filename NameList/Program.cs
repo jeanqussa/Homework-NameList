@@ -15,8 +15,8 @@ namespace Homework.NameList
         /// <param name="descending">Whether to sort in descending order. Default = false.</param>
         /// <returns>A <c>List&lt;KeyValuePair&lt;int, string&gt;&gt;</c> containing all values 
         /// in the dictionary but in sorted order.</returns>
-        public static List<KeyValuePair<int, string>> SortPairs(ref Dictionary<int, string> pairs, bool descending = false) {
-            var pairsArray = new List<KeyValuePair<int, string>>();
+        public static IList<KeyValuePair<int, string>> SortPairs(ref IDictionary<int, string> pairs, bool descending = false) {
+            IList<KeyValuePair<int, string>> pairsArray = new List<KeyValuePair<int, string>>();
             foreach (var entry in pairs) {
                 pairsArray.Add(entry);
             }
@@ -52,7 +52,7 @@ namespace Homework.NameList
             string filename = args[args.Length - 1];
 
             // Handle exceptions by printing a helpful error message
-            Dictionary<int, string> names;
+            IDictionary<int, string> names;
             try {
                 names = CSVReader.ReadPairsFromCSVFile(filename);
             } catch (Exception e) {

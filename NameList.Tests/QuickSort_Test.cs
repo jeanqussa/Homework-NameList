@@ -10,7 +10,7 @@ namespace Homework.NameList.Tests
         [Fact]
         public void SwappingWorks()
         {
-            var list = new List<int>();
+            IList<int> list = new List<int>();
             list.Add(1);
             list.Add(2);
             QuickSort.Swap(ref list, 0, 1);
@@ -21,7 +21,7 @@ namespace Homework.NameList.Tests
         [Fact]
         public void PartitioningWorks()
         {
-            var list = new List<int>();
+            IList<int> list = new List<int>();
             list.Add(4);
             list.Add(1);
             list.Add(3);
@@ -44,7 +44,7 @@ namespace Homework.NameList.Tests
         [InlineData(5, true)]
         public void SortingEmptyListWorks(int count, bool descending)
         {
-            var list = new List<int>();
+            IList<int> list = new List<int>();
             Random rnd = new Random();
 
             for (int i = 0; i < count; i++) {

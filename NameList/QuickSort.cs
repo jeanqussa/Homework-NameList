@@ -11,7 +11,7 @@ namespace Homework.NameList
         /// </summary>
         /// <param name="a">Index of first element.</param>
         /// <param name="b">Index of second element.</param>
-        public static void Swap<T>(ref List<T> elements, int a, int b) {
+        public static void Swap<T>(ref IList<T> elements, int a, int b) {
             var temp = elements[a];
             elements[a] = elements[b];
             elements[b] = temp;
@@ -33,7 +33,7 @@ namespace Homework.NameList
         /// <param name="left">Index of element in array at which the partition begins.</param>
         /// <param name="right">Index of element in array at which the partition ends.</param>
         /// <returns>The new index of the pivot.</returns>
-        public static int Partition<T>(ref List<T> elements, Func<T, T, bool> shouldBeBefore, int left, int right) {
+        public static int Partition<T>(ref IList<T> elements, Func<T, T, bool> shouldBeBefore, int left, int right) {
             var pivot = elements[(left + right) / 2];
 
             int i = left - 1;
@@ -71,7 +71,7 @@ namespace Homework.NameList
         /// <param name="left">Index of element in array at which the partition begins.</param>
         /// <param name="right">Index of element in array at which the partition ends.</param>
         /// <returns>The new index of the pivot.</returns>
-        public static void Sort<T>(ref List<T> elements, Func<T, T, bool> shouldBeBefore, int left, int right) {
+        public static void Sort<T>(ref IList<T> elements, Func<T, T, bool> shouldBeBefore, int left, int right) {
             if (left >= right) return;
             int pivot = Partition(ref elements, shouldBeBefore, left, right);
             Sort(ref elements, shouldBeBefore, left, pivot);
